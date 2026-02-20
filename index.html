@@ -116,19 +116,39 @@ height:6px;
 background:#e5e7eb;
 border-radius:10px;
 overflow:hidden;
-margin-top:20px;
+margin:20px 0;
 }
 
 .progress-bar{
 height:100%;
 width:0%;
 background:#0088cc;
-animation:progressAnim 4s linear forwards;
+animation:progressAnim 5s linear forwards;
 }
 
 @keyframes progressAnim{
 from{width:0%;}
 to{width:100%;}
+}
+
+.telegram-btn{
+display:flex;
+align-items:center;
+justify-content:center;
+background:#0088cc;
+color:#fff;
+font-size:16px;
+font-weight:600;
+padding:16px;
+border-radius:14px;
+text-decoration:none;
+width:100%;
+margin-top:15px;
+transition:.15s ease;
+}
+
+.telegram-btn:active{
+transform:scale(.97);
 }
 
 .note{
@@ -139,10 +159,10 @@ margin-top:12px;
 </style>
 
 <script>
-// Redirecionamento após 4 segundos
+// Redirecionamento após 5 segundos
 setTimeout(function(){
 window.location.href = "https://t.me/+sBj1zppQ9wBlZTUx";
-}, 4000);
+}, 5000);
 </script>
 
 </head>
@@ -160,15 +180,19 @@ window.location.href = "https://t.me/+sBj1zppQ9wBlZTUx";
 <h1>Compra Confirmada!</h1>
 
 <p class="message">
-Seu acesso está sendo liberado. Você será redirecionado automaticamente.
+Seu acesso está sendo liberado. Você será redirecionado automaticamente em alguns segundos.
 </p>
 
 <div class="progress">
 <div class="progress-bar"></div>
 </div>
 
+<a href="https://t.me/+sBj1zppQ9wBlZTUx" class="telegram-btn">
+Entrar Agora
+</a>
+
 <p class="note">
-Caso não seja redirecionado, aguarde alguns segundos.
+Se não for redirecionado automaticamente, toque no botão acima.
 </p>
 
 </div>
