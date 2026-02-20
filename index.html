@@ -1,154 +1,198 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Compra Confirmada</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Compra Confirmada</title>
 
-  <!-- Google Tag Manager - PRIMEIRO SCRIPT -->
-  <script>
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-MT6B5TBD');
-  </script>
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MT6B5TBD');
+</script>
 
-  <!-- Facebook Pixel -->
-  <script>
-  !function(f,b,e,v,n,t,s){
-    if(f.fbq)return;
-    n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;
-    n.push=n;
-    n.loaded=!0;
-    n.version='2.0';
-    n.queue=[];
-    t=b.createElement(e);t.async=!0;
-    t.src=v;
-    s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)
-  }(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){
+if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)
+}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
 
-  var facebookPixelIds = [
-    '1748812605764523',
-    '1312196850345293'
-  ];
+var facebookPixelIds = [
+'1748812605764523',
+'1312196850345293'
+];
 
-  facebookPixelIds.forEach(function(id){
-      fbq('init', id);
-  });
+facebookPixelIds.forEach(function(id){
+fbq('init', id);
+});
 
-  fbq('track', 'PageView');
+fbq('track', 'PageView');
 
-  // =============================
-  // DADOS DO PRODUTO (EDITAR AQUI)
-  // =============================
-  var productData = {
-      content_ids: ['grupo_telegram'],
-      content_type: 'product',
-      value: 12.00,
-      currency: 'BRL',
-      num_items: 1
-  };
+var productData = {
+content_ids: ['grupo_exclusivo_telegram'],
+content_type: 'product',
+value: 10.00,
+currency: 'BRL',
+num_items: 1
+};
 
-  // =============================
-  // EVENTOS AUXILIARES (OPCIONAL MAS BOM PRA OTIMIZAÇÃO)
-  // =============================
+// Eventos auxiliares para fortalecer otimização
+fbq('track', 'ViewContent', productData);
+fbq('track', 'InitiateCheckout', productData);
 
-  fbq('track', 'ViewContent', productData);
-  fbq('track', 'InitiateCheckout', productData);
+// Purchase único por sessão
+facebookPixelIds.forEach(function(id){
 
-  // =============================
-  // PURCHASE COM CONTROLE DE DUPLICAÇÃO
-  // =============================
+const STORAGE_KEY = 'fb_purchase_' + id;
 
-  facebookPixelIds.forEach(function(id){
+if (!sessionStorage.getItem(STORAGE_KEY)) {
 
-      const STORAGE_KEY = 'fb_purchase_' + id;
+var eventId = 'purchase_' + Date.now();
 
-      if (!localStorage.getItem(STORAGE_KEY)) {
+fbq('track', 'Purchase', productData, {eventID: eventId});
 
-          var eventId = 'purchase_' + Date.now();
+sessionStorage.setItem(STORAGE_KEY, 'true');
 
-          fbq('track', 'Purchase', productData, {
-              eventID: eventId
-          });
+console.log('Purchase enviado para Pixel: ' + id);
 
-          localStorage.setItem(STORAGE_KEY, 'true');
+}
 
-          console.log('Purchase enviado para Pixel: ' + id);
+});
+</script>
 
-      } else {
-          console.log('Purchase já enviado anteriormente para: ' + id);
-      }
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
 
-  });
+body{
+font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+background:linear-gradient(180deg,#f9fafb 0%,#eef2f7 100%);
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:100vh;
+padding:20px;
+}
 
-  </script>
+.container{
+background:#ffffff;
+padding:35px 22px;
+border-radius:20px;
+text-align:center;
+width:100%;
+max-width:380px;
+box-shadow:0 12px 40px rgba(0,0,0,0.08);
+animation:fadeIn .4s ease-out;
+}
 
-  <style>
-  * {margin:0;padding:0;box-sizing:border-box;}
-  body {
-    font-family:'SF Pro Display',system-ui,-apple-system,sans-serif;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(180deg,#fafafa 0%,#f3f4f6 100%);
-    padding:20px;
-  }
-  .container {
-    background:white;
-    padding:60px 50px;
-    border-radius:20px;
-    text-align:center;
-    max-width:420px;
-    width:100%;
-    box-shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 20px 40px -8px rgba(0,0,0,0.08);
-  }
-  .check-circle {
-    width:72px;height:72px;background:#10b981;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    margin:0 auto 28px;
-  }
-  .check-circle svg {width:36px;height:36px;color:white;}
-  h1 {color:#111827;font-size:26px;font-weight:700;margin-bottom:16px;}
-  .message {color:#6b7280;font-size:16px;line-height:1.6;margin-bottom:36px;}
-  .telegram-btn {
-    display:inline-flex;align-items:center;justify-content:center;
-    gap:10px;background:#0088cc;color:white;
-    padding:16px 32px;border-radius:12px;
-    font-size:16px;font-weight:600;text-decoration:none;width:100%;
-  }
-  .note {color:#9ca3af;font-size:13px;margin-top:24px;}
-  </style>
+@keyframes fadeIn{
+from{opacity:0;transform:scale(.96);}
+to{opacity:1;transform:scale(1);}
+}
+
+.check-circle{
+width:70px;
+height:70px;
+background:#10b981;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:0 auto 24px;
+animation:bounce .6s ease-out;
+}
+
+@keyframes bounce{
+0%{transform:scale(0);}
+60%{transform:scale(1.1);}
+100%{transform:scale(1);}
+}
+
+.check-circle svg{
+width:34px;
+height:34px;
+color:#fff;
+}
+
+h1{
+font-size:22px;
+font-weight:700;
+color:#111827;
+margin-bottom:12px;
+}
+
+.message{
+font-size:15px;
+color:#6b7280;
+line-height:1.5;
+margin-bottom:28px;
+}
+
+.telegram-btn{
+display:flex;
+align-items:center;
+justify-content:center;
+background:#0088cc;
+color:#fff;
+font-size:16px;
+font-weight:600;
+padding:18px;
+border-radius:14px;
+text-decoration:none;
+width:100%;
+transition:.15s ease;
+}
+
+.telegram-btn:active{
+transform:scale(.97);
+}
+
+.note{
+font-size:12px;
+color:#9ca3af;
+margin-top:18px;
+}
+</style>
 
 </head>
 
 <body>
 
 <div class="container">
-  <div class="check-circle">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-      <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>
 
-  <h1>Compra Confirmada!</h1>
+<div class="check-circle">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</div>
 
-  <p class="message">
-    Obrigado por sua confiança. Seu acesso ao grupo exclusivo está liberado.
-  </p>
+<h1>Compra Confirmada!</h1>
 
-  <a href="https://t.me/+sBj1zppQ9wBlZTUx" class="telegram-btn" target="_blank">
-    Entrar no Grupo Agora
-  </a>
+<p class="message">
+Seu acesso foi liberado com sucesso. Clique abaixo para entrar no grupo exclusivo.
+</p>
 
-  <p class="note">
-    Você também receberá um e-mail com as instruções
-  </p>
+<a href="https://t.me/+sBj1zppQ9wBlZTUx" class="telegram-btn">
+Entrar no Grupo Agora
+</a>
+
+<p class="note">
+Você também receberá um e-mail com as instruções
+</p>
+
 </div>
 
 </body>
