@@ -17,11 +17,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Facebook Pixel -->
 <script>
 !function(f,b,e,v,n,t,s){
-if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+if(f.fbq)return;
+n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
+if(!f._fbq)f._fbq=n;
+n.push=n;
+n.loaded=!0;
+n.version='2.0';
+n.queue=[];
+t=b.createElement(e);t.async=!0;
+t.src=v;
+s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)
 }(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
@@ -31,11 +37,15 @@ var facebookPixelIds = [
 '1312196850345293'
 ];
 
+// Inicializa cada pixel separadamente
 facebookPixelIds.forEach(function(id){
 fbq('init', id);
 });
 
-fbq('track', 'PageView');
+// PageView
+facebookPixelIds.forEach(function(id){
+fbq('trackSingle', id, 'PageView');
+});
 
 var productData = {
 content_ids: ['grupo_exclusivo_telegram'],
@@ -45,25 +55,22 @@ currency: 'BRL',
 num_items: 1
 };
 
-fbq('track', 'ViewContent', productData);
-fbq('track', 'InitiateCheckout', productData);
+// Eventos auxiliares
+facebookPixelIds.forEach(function(id){
+fbq('trackSingle', id, 'ViewContent', productData);
+fbq('trackSingle', id, 'InitiateCheckout', productData);
+});
 
-// Purchase único por sessão
+// Purchase REAL sem bloqueio
 facebookPixelIds.forEach(function(id){
 
-const STORAGE_KEY = 'fb_purchase_' + id;
+var eventId = 'purchase_' + Date.now() + '_' + Math.random().toString(36).substr(2,9);
 
-if (!sessionStorage.getItem(STORAGE_KEY)) {
+fbq('trackSingle', id, 'Purchase', productData, {
+eventID: eventId
+});
 
-var eventId = 'purchase_' + Date.now();
-
-fbq('track', 'Purchase', productData, {eventID: eventId});
-
-sessionStorage.setItem(STORAGE_KEY, 'true');
-
-console.log('Purchase enviado para Pixel: ' + id);
-
-}
+console.log('Purchase enviado corretamente para pixel:', id);
 
 });
 </script>
@@ -92,8 +99,10 @@ box-shadow:0 12px 40px rgba(0,0,0,0.08);
 
 .check-circle{
 width:70px;height:70px;background:#10b981;
-border-radius:50%;display:flex;
-align-items:center;justify-content:center;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
 margin:0 auto 24px;
 }
 
@@ -123,7 +132,7 @@ margin:20px 0;
 height:100%;
 width:0%;
 background:#0088cc;
-animation:progressAnim 5s linear forwards;
+animation:progressAnim 8s linear forwards;
 }
 
 @keyframes progressAnim{
@@ -159,10 +168,10 @@ margin-top:12px;
 </style>
 
 <script>
-// Redirecionamento após 5 segundos
+// Redirecionamento após 8 segundos
 setTimeout(function(){
 window.location.href = "https://t.me/+_7nW4EXqDlU1NmFh";
-}, 5000);
+}, 8000);
 </script>
 
 </head>
@@ -199,6 +208,3 @@ Se não for redirecionado automaticamente, toque no botão acima.
 
 </body>
 </html>
-
-
-
